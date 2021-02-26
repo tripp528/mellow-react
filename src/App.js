@@ -27,23 +27,42 @@ function App() {
       <header className="App-header">
       </header>
       <section>
-        <BoulderBuilder />
+        <BoulderList />
       </section>
     </div>
   );
 }
 
-const BoulderBuilder = ({}) => {
+const BoulderList = ({}) => {
 
   // reference to boulders collection in firestore
   const boulders_ref = firestore.collection('boulders')
-
-  const [boulders] = useCollectionData(boulders_ref)
-  console.log(boulders)
+  const [boulders] = useCollectionData(boulders_ref, {
+    idField: 'id',
+  })
 
   return (
     <div>
-      Hello world
+      {boulders && boulders.map(boulder => {
+        return (
+          <Boulder
+            key={boulder.id}
+            name={boulder.name}
+            lat={boulder.location.latitude}
+            lng={boulder.location.longitude}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
+const Boulder = ({id, name, lat, lng}) => {
+  return (
+    <div key={id}>
+      <p> {name} </p>
+      <p> {lat} </p>
+      <p> {lng} </p>
     </div>
   )
 }
