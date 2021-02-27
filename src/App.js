@@ -1,4 +1,5 @@
 import React from 'react'
+import Boulder from './Boulder'
 
 import firebase from 'firebase/app'
 import 'firebase/firestore'
@@ -19,7 +20,7 @@ if (!firebase.apps.length) {
    firebase.app(); // if already initialized, use that one
 }
 
-const firestore = firebase.firestore()
+const db = firebase.firestore()
 
 function App() {
   return (
@@ -36,9 +37,13 @@ function App() {
 const BoulderList = ({}) => {
 
   // reference to boulders collection in firestore
-  const boulders_ref = firestore.collection('boulders')
+  const boulders_ref = db.collection('boulders')
   const [boulders] = useCollectionData(boulders_ref, {
     idField: 'id',
+    refField: 'doc_ref',
+    transform: t => {
+      return t
+    }
   })
 
   return (
@@ -48,21 +53,11 @@ const BoulderList = ({}) => {
           <Boulder
             key={boulder.id}
             name={boulder.name}
-            lat={boulder.location.latitude}
-            lng={boulder.location.longitude}
+            location={boulder.location}
+            doc_ref={boulder.doc_ref}
           />
         )
       })}
-    </div>
-  )
-}
-
-const Boulder = ({id, name, lat, lng}) => {
-  return (
-    <div key={id}>
-      <p> {name} </p>
-      <p> {lat} </p>
-      <p> {lng} </p>
     </div>
   )
 }
