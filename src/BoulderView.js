@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, TextField } from '@material-ui/core';
 
-const Boulder = ({name, location, doc_ref}) => {
+const BoulderView = ({name, location, doc_ref}) => {
   // const loc = new firebase.firestore.GeoPoint(lat, lng)
 
   const [new_name, set_new_name] = React.useState('')
@@ -25,10 +25,10 @@ const Boulder = ({name, location, doc_ref}) => {
 }
 
 
-Boulder.propTypes = {
+BoulderView.propTypes = {
   name: PropTypes.string.isRequired,
   location: PropTypes.object.isRequired,
   doc_ref: PropTypes.object.isRequired,
 };
 
-export default Boulder
+export default BoulderView
