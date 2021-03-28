@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+
 import BoulderView from './BoulderView'
-import { BoulderModel } from './model/BoulderModel'
+import { FirestoreContext } from './FirestoreProvider'
 
 const BoulderList = () => {
 
-  const [boulders, set_boulders] = useState([])
-  const bmodel = new BoulderModel()
+  const { db } = useContext(FirestoreContext)
 
-  useEffect(() => {
-    console.log("YOO")
-    bmodel.subscribe_all_boulders()
-    .then(res => {
-      set_boulders(res)
-    })
-    .catch(err => {
-      console.error(err)
-    })
-  }, [])
+  // reference to boulders collection in firestore
+  const boulders_ref = db.collection('boulders')
+  const [boulders] = useCollectionData(boulders_ref, {
+    idField: 'id',
+    refField: 'doc_ref',
+    // transform: t => {
+    //   return t
+    // }
+  })
 
   return (
     <div>

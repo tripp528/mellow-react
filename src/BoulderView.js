@@ -16,8 +16,7 @@ const BoulderView = ({name, location, doc_ref}) => {
       <Button
         color="primary"
         onClick={() => {
-          console.log(new_name)
-          doc_ref.update({name: new_name})
+          doc_ref.update({ name: new_name })
         }}
       > Change Name </Button>
     </div>
