@@ -1,40 +1,23 @@
-import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-
+import React from 'react'
+import { Tabs } from 'antd'
 import BoulderList from 'BoulderList'
 
+const { TabPane } = Tabs
+
 const MainTabs = () => {
-  const [value, set_value] = React.useState(0);
-
-  // define order for tabs
-  const tabs = [
-    "Boulder",
-    "Area",
-  ]
-
-  const tab_content = {
-    "Boulder": <BoulderList />,
-    "Area": <div> Areasss </div>
-  }
+  const [value, set_value] = React.useState(0)
 
   return (
     <div>
-      <Paper square>
-        <Tabs
-          value={value}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={(e, new_val) => set_value(new_val)}
-        >
-          {tabs.map(x => <Tab key={x} label={x} />)}
-        </Tabs>
-      </Paper>
-
-      {tab_content[tabs[value]]}
-
+      <Tabs defaultActiveKey="1" onChange={() => console.log("tab change")}>
+        <TabPane tab="Boulder" key="1">
+          <BoulderList />
+        </TabPane>
+        <TabPane tab="Area" key="2">
+          Areasssss
+        </TabPane>
+      </Tabs>
     </div>
-  );
+  )
 }
 export default MainTabs

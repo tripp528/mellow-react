@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+import { List, Typography, Divider } from 'antd';
 
 import { FirestoreContext } from 'FirestoreProvider'
 import CreateBoulder from 'CreateBoulder'
@@ -19,17 +17,18 @@ const BoulderList = () => {
   })
 
   return (
-    <List>
+    <div>
       <CreateBoulder />
-      {boulders && boulders.map(boulder => (
-        <ListItem key={boulder.id}>
-          <ListItemText inset
-            primary={boulder.name}
-            secondary={"(" + boulder.location.latitude + ", " + boulder.location.latitude + ")"}
-          />
-        </ListItem>
-      ))}
-    </List>
+
+      <List
+        dataSource={boulders}
+        renderItem={boulder => (
+          <List.Item>
+            {boulder.name}
+          </List.Item>
+        )}
+      />
+    </div>
   )
 }
 

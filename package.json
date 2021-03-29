@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.3",
+    "antd": "^4.15.0",
     "react": "16.10",
     "react-dom": "16.10",
     "react-firebase-hooks": "github:CSFrequency/react-firebase-hooks",

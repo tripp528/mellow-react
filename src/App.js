@@ -1,7 +1,7 @@
 import React from 'react'
 import MainTabs from 'MainTabs'
 import { FirestoreProvider } from 'FirestoreProvider'
-
+import 'antd/dist/antd.css';
 // https://github.com/esetnik/customize-cra-react-refresh
 
 function App() {
