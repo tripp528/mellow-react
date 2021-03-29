@@ -1,6 +1,6 @@
 import React from 'react'
-import BoulderList from './BoulderList'
-import { FirestoreProvider } from './FirestoreProvider'
+import MainTabs from 'MainTabs'
+import { FirestoreProvider } from 'FirestoreProvider'
 
 // https://github.com/esetnik/customize-cra-react-refresh
 
@@ -11,7 +11,7 @@ function App() {
       </header>
       <section>
         <FirestoreProvider>
-          <BoulderList />
+          <MainTabs />
         </FirestoreProvider>
       </section>
     </div>
