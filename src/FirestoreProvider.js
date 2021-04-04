@@ -14,7 +14,7 @@ if (!firebase.apps.length) {
 
 // initialize state of context
 const initial_state = {
-  db: firebase_app.firestore()
+  db: firebase_app.firestore(),
 }
 
 export const FirestoreContext = createContext(initial_state)

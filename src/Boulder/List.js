@@ -1,30 +1,33 @@
 import React, { useContext } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
-import { List, Typography, Divider } from 'antd';
+import { List } from 'antd';
 
 import { FirestoreContext } from 'FirestoreProvider'
-import CreateBoulder from 'CreateBoulder'
+import CreateBoulder from 'Boulder/Create'
+import UpdateBoulder from 'Boulder/Update'
+import * as utils from 'utils'
 
 const BoulderList = () => {
 
   const { db } = useContext(FirestoreContext)
 
   // reference to boulders collection in firestore
-  const boulders_ref = db.collection('boulders')
-  const [boulders] = useCollectionData(boulders_ref, {
+  const [boulders, loading, error] = useCollectionData(db.collection(utils.collections.BOULDERS), {
     idField: 'id',
     refField: 'doc_ref'
   })
 
+  if (error) utils.error_msg(error)
+
   return (
     <div>
       <CreateBoulder />
-
       <List
+        loading={loading}
         dataSource={boulders}
         renderItem={boulder => (
           <List.Item>
-            {boulder.name}
+            {boulder.name} <UpdateBoulder boulder={boulder} />
           </List.Item>
         )}
       />

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs } from 'antd'
-import BoulderList from 'BoulderList'
+import BoulderList from 'Boulder/List'
+import AreaList from 'Area/List'
 
 const { TabPane } = Tabs
 
@@ -10,11 +11,11 @@ const MainTabs = () => {
   return (
     <div>
       <Tabs defaultActiveKey="1" onChange={() => console.log("tab change")}>
-        <TabPane tab="Boulder" key="1">
-          <BoulderList />
+        <TabPane tab="Area" key="1">
+          <AreaList />
         </TabPane>
-        <TabPane tab="Area" key="2">
-          Areasssss
+        <TabPane tab="Boulder" key="2">
+          <BoulderList />
         </TabPane>
       </Tabs>
     </div>
