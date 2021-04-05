@@ -13,7 +13,6 @@ const UpdateArea = ({
   const [modal_showing, set_modal_showing] = useState(false)
   const [form_vals, set_form_vals] = useState(area)
 
-
   return (
     <div>
       <Button

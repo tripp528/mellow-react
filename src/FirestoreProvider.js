@@ -1,6 +1,7 @@
 import React, { useState, createContext } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/storage'
 
 import firebase_config from './firebase_config'
 
@@ -13,18 +14,19 @@ if (!firebase.apps.length) {
 }
 
 // initialize state of context
-const initial_state = {
+const init_store = {
   db: firebase_app.firestore(),
+  storage_ref: firebase.storage().ref()
 }
 
-export const FirestoreContext = createContext(initial_state)
+export const FirestoreContext = createContext(init_store)
 
 export const FirestoreProvider = ({ children }) => {
 
-  const [value, set_value] = useState(initial_state)
+  const [store, set_store] = useState(init_store)
 
   return (
-    <FirestoreContext.Provider value={ value }>
+    <FirestoreContext.Provider value={ { ...store, set_store } }>
       {children}
     </FirestoreContext.Provider>
   )

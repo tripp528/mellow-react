@@ -6,18 +6,14 @@ import * as utils from 'utils'
 import BoulderForm from 'Boulder/Form'
 
 
-const CreateBoulder = ({
-  boulder,
-}) => {
+const CreateBoulder = () => {
 
-  if (!boulder) boulder = {
+  const [modal_showing, set_modal_showing] = useState(false)
+  const [form_vals, set_form_vals] = useState({
     name: "",
     location: new firebase.firestore.GeoPoint(0,0),
     area: null
-  }
-
-  const [modal_showing, set_modal_showing] = useState(false)
-  const [form_vals, set_form_vals] = useState(boulder)
+  })
 
   return (
     <div>

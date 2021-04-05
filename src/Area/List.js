@@ -28,6 +28,7 @@ const AreaList = () => {
         renderItem={area => (
           <List.Item>
             {area.name}
+            <img src={area.image_url} />
             <UpdateArea area={area} />
           </List.Item>
         )}

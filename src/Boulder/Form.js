@@ -72,6 +72,7 @@ const BoulderForm = ({
             }}
           />
 
+          {/* area */}
           <AreaSelect
             value={form_vals.area}
             set_value={(val) => {

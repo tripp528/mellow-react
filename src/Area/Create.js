@@ -6,16 +6,13 @@ import * as utils from 'utils'
 import AreaForm from 'Area/Form'
 
 
-const CreateArea = ({
-  area,
-}) => {
-
-  if (!area) area = {
-    name: ""
-  }
+const CreateArea = () => {
 
   const [modal_showing, set_modal_showing] = useState(false)
-  const [form_vals, set_form_vals] = useState(area)
+  const [form_vals, set_form_vals] = useState({
+    name: "",
+    image_url: null
+  })
 
   return (
     <div>

@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import firebase from 'firebase/app'
 import { Input, InputNumber, Button, Divider, Result } from 'antd'
 
 import * as utils from 'utils'
 import { FirestoreContext } from 'FirestoreProvider'
+import ImageUpload from 'UI/ImageUpload'
 
 
 const AreaForm = ({
@@ -18,9 +19,10 @@ const AreaForm = ({
   const submit_area = (new_area) => {
     const data = {
       name: new_area.name,
+      image_url: new_area.image_url
     }
     const add_or_update = () => {
-      console.log(new_area)
+      console.log(data)
       if (new_area.doc_ref) return new_area.doc_ref.set(data)
       else return db.collection(utils.collections.AREAS).add(data)
     }
@@ -59,6 +61,7 @@ const AreaForm = ({
     <div>
       {!submit_success && !submit_error ?
         <div>
+
           {/* name */}
           <Input
             value={form_vals.name}
@@ -66,6 +69,16 @@ const AreaForm = ({
             onChange={(e) => {
               const new_form_vals = {...form_vals}
               new_form_vals.name = e.target.value
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          {/* image */}
+          <ImageUpload
+            url={form_vals.image_url}
+            set_url={val => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.image_url = val
               set_form_vals(new_form_vals)
             }}
           />
