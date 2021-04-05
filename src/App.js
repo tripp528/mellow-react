@@ -14,7 +14,9 @@ function App() {
       </header>
       <section>
         <FirestoreProvider>
-          <MainTabs />
+          <Col sm={{span: 18, offset: 3}}>
+            <MainTabs />
+          </Col>
         </FirestoreProvider>
       </section>
     </div>

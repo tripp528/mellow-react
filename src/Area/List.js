@@ -6,6 +6,7 @@ import { FirestoreContext } from 'FirestoreProvider'
 import * as utils from 'utils'
 import CreateArea from 'Area/Create'
 import UpdateArea from 'Area/Update'
+import ListItem from 'UI/ListItem'
 
 const AreaList = () => {
 
@@ -25,12 +26,15 @@ const AreaList = () => {
       <List
         loading={loading}
         dataSource={areas}
+        itemLayout="horizontal"
         renderItem={area => (
-          <List.Item>
-            {area.name}
-            <img src={area.image_url} />
-            <UpdateArea area={area} />
-          </List.Item>
+          <ListItem
+            title={area.name}
+            description={"description"}
+            other_content={"other content"}
+            image_url={area.image_url}
+            edit={<UpdateArea area={area} />}
+          />
         )}
       />
     </div>

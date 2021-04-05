@@ -6,6 +6,7 @@ import { FirestoreContext } from 'FirestoreProvider'
 import CreateBoulder from 'Boulder/Create'
 import UpdateBoulder from 'Boulder/Update'
 import * as utils from 'utils'
+import ListItem from 'UI/ListItem'
 
 const BoulderList = () => {
 
@@ -26,9 +27,13 @@ const BoulderList = () => {
         loading={loading}
         dataSource={boulders}
         renderItem={boulder => (
-          <List.Item>
-            {boulder.name} <UpdateBoulder boulder={boulder} />
-          </List.Item>
+          <ListItem
+            title={boulder.name}
+            description={"description"}
+            other_content={"other content"}
+            image_url={boulder.image_url}
+            edit={<UpdateBoulder boulder={boulder} />}
+          />
         )}
       />
     </div>
