@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import firebase from 'firebase/app'
 import { Button, Modal } from 'antd'
 
 import * as utils from 'utils'
+import { FirestoreContext } from 'FirestoreProvider'
 import AreaForm from 'Area/Form'
 
 
 const CreateArea = () => {
 
+  const { db } = useContext(FirestoreContext)
   const [modal_showing, set_modal_showing] = useState(false)
-  const [form_vals, set_form_vals] = useState({
-    name: "",
-    image_url: null
-  })
+
+  const new_area = () => {
+    const id = utils.uuid()
+    return {
+      id: id,
+      doc_ref: db.doc(utils.collections.AREAS + '/' + id),
+      name: "",
+      image_url: null,
+    }
+  }
+  const [form_vals, set_form_vals] = useState(new_area())
 
   return (
     <div>

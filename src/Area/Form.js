@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import firebase from 'firebase/app'
 import { Input, InputNumber, Button, Divider, Result } from 'antd'
 
@@ -16,17 +17,20 @@ const AreaForm = ({
   const [submit_success, set_submit_success] = useState(false)
   const [submit_error, set_submit_error] = useState(false)
 
+  // subscribe to the images subcollection
+  const images_ref = form_vals.doc_ref.collection('images')
+  const [images, loading, error] = useCollectionData(images_ref, {
+    idField: 'id',
+    refField: 'doc_ref'
+  })
+  if (error) utils.error_msg(error)
+
   const submit_area = (new_area) => {
     const data = {
-      name: new_area.name,
-      image_url: new_area.image_url
+      name: new_area.name
     }
-    const add_or_update = () => {
-      console.log(data)
-      if (new_area.doc_ref) return new_area.doc_ref.set(data)
-      else return db.collection(utils.collections.AREAS).add(data)
-    }
-    add_or_update()
+
+    new_area.doc_ref.set(data)
     .then((docRef) => {
       set_submit_success(true)
     })
@@ -75,12 +79,8 @@ const AreaForm = ({
 
           {/* image */}
           <ImageUpload
-            url={form_vals.image_url}
-            set_url={val => {
-              const new_form_vals = {...form_vals}
-              new_form_vals.image_url = val
-              set_form_vals(new_form_vals)
-            }}
+            images_ref={images_ref}
+            images={images}
           />
 
           <Divider/>
