@@ -33,10 +33,8 @@ const ImageUpload = ({
     const upload_success = () => {
       // Upload completed successfully, now we can get the download URL
       upload_task.snapshot.ref.getDownloadURL().then((download_url) => {
-        console.log('File available at', download_url)
         set_upload_status('uploaded')
         set_upload_progress(100)
-
 
         // add the download url to an image document in the images subcollection
         images_ref.doc(utils.uuid()).set({
@@ -98,7 +96,7 @@ const ImageUpload = ({
         type="file"
         onChange={e => upload(e.target.files[0])}
       />
-      {images.map(img => {
+      {images && images.map(img => {
         return (
           <Image
             key={img.id}
