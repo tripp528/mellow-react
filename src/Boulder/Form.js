@@ -1,10 +1,15 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import firebase from 'firebase/app'
 import { Input, InputNumber, Button, Divider, Result } from 'antd'
 
 import * as utils from 'utils'
 import { FirestoreContext } from 'FirestoreProvider'
+import ImageUpload from 'UI/ImageUpload'
 import AreaSelect from 'Area/Select'
+
+const { TextArea } = Input;
+
 
 const BoulderForm = ({
   form_vals,
@@ -12,21 +17,22 @@ const BoulderForm = ({
 }) => {
 
   const { db } = useContext(FirestoreContext)
-
   const [submit_success, set_submit_success] = useState(false)
   const [submit_error, set_submit_error] = useState(false)
 
+  // subscribe to the images subcollection
+  const images_ref = form_vals.doc_ref.collection('images')
+  const [images, loading, error] = useCollectionData(images_ref, {
+    idField: 'id',
+    refField: 'doc_ref'
+  })
+  if (error) utils.error_msg(error)
+
   const submit_boulder = (new_boulder) => {
-    const data = {
-      name: new_boulder.name,
-      location: new_boulder.location,
-      area: new_boulder.area
-    }
-    const add_or_update = () => {
-      if (new_boulder.doc_ref) return new_boulder.doc_ref.set(data)
-      else return db.collection(utils.collections.BOULDERS).add(data)
-    }
-    add_or_update()
+    const data = { ...new_boulder }
+    delete data.id
+    delete data.doc_ref
+    new_boulder.doc_ref.set(data)
     .then((docRef) => {
       set_submit_success(true)
     })
@@ -35,7 +41,7 @@ const BoulderForm = ({
     })
   }
 
-  const get_result = () => {
+  const get_subission_result = () => {
     if (submit_success) {
       return (
         <Result
@@ -61,7 +67,9 @@ const BoulderForm = ({
     <div>
       {!submit_success && !submit_error ?
         <div>
+
           {/* name */}
+          Name
           <Input
             value={form_vals.name}
             placeholder="Name"
@@ -72,7 +80,10 @@ const BoulderForm = ({
             }}
           />
 
+          <Divider/>
+
           {/* area */}
+          Area
           <AreaSelect
             value={form_vals.area}
             set_value={(val) => {
@@ -82,7 +93,10 @@ const BoulderForm = ({
             }}
           />
 
+          <Divider/>
+
           {/* latitude */}
+          <p>Location (be as accurate as possible!)</p>
           <InputNumber
             min="-90"
             max="90"
@@ -95,7 +109,6 @@ const BoulderForm = ({
               set_form_vals(new_form_vals)
             }}
           />
-
           {/* longitude */}
           <InputNumber
             min="-180"
@@ -111,16 +124,39 @@ const BoulderForm = ({
           />
 
           <Divider/>
+
+          {/* summary */}
+          Summary
+          <TextArea
+            value={form_vals.summary}
+            placeholder="Summary"
+            onChange={(e) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.summary = e.target.value
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          <Divider/>
+
+          {/* images */}
+          Images
+          <ImageUpload
+            images_ref={images_ref}
+            images={images}
+          />
+
+          <Divider/>
           <Button
             type="primary"
             onClick={() => {
               submit_boulder(form_vals)
             }}
-          > Submit </Button>
+          > Save </Button>
 
         </div>
         :
-        <div>{get_result()}</div>
+        <div>{get_subission_result()}</div>
       }
     </div>
   )

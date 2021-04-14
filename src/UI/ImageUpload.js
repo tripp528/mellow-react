@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useDownloadURL } from 'react-firebase-hooks/storage'
 import firebase from 'firebase/app'
-import { Image } from 'antd'
+import UploadedImage from 'UI/UploadedImage'
 
 import { FirestoreContext } from 'FirestoreProvider'
 import * as utils from 'utils'
@@ -98,10 +98,9 @@ const ImageUpload = ({
       />
       {images && images.map(img => {
         return (
-          <Image
+          <UploadedImage
             key={img.id}
-            width={100}
-            src={img.url}
+            image_document={img}
           />
         )
       })}

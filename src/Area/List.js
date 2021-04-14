@@ -5,8 +5,9 @@ import { List } from 'antd';
 import { FirestoreContext } from 'FirestoreProvider'
 import * as utils from 'utils'
 import CreateArea from 'Area/Create'
-import UpdateArea from 'Area/Update'
+import AreaEdit from 'Area/Edit'
 import ListItem from 'UI/ListItem'
+import DeleteButton from 'UI/DeleteButton'
 
 const AreaListItem = ({ area }) => {
   const [images, loading, error] = useCollectionData(area.doc_ref.collection('images'))
@@ -19,7 +20,8 @@ const AreaListItem = ({ area }) => {
       description={"description"}
       other_content={"other content"}
       image_url={image_url}
-      edit={<UpdateArea area={area} />}
+      edit_button={<AreaEdit area={area} />}
+      delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(area)} />}
     />
   )
 }
@@ -29,7 +31,7 @@ const AreaList = () => {
   const { db } = useContext(FirestoreContext)
 
   // reference to areas collection in firestore
-  const [areas, loading, error] = useCollectionData(db.collection(utils.collections.AREAS), {
+  const [areas, loading, error] = useCollectionData(db.collection(utils.collections.areas), {
     idField: 'id',
     refField: 'doc_ref'
   })

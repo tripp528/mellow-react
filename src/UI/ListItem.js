@@ -6,11 +6,12 @@ const ListItem = ({
   description,
   other_content,
   image_url,
-  edit,
+  edit_button,
+  delete_button,
 }) => {
   return (
     <List.Item
-      actions={[edit]}
+      actions={[edit_button, delete_button]}
     >
       <Skeleton avatar title={false} loading={false} active>
         <List.Item.Meta

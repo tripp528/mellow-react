@@ -7,6 +7,8 @@ import * as utils from 'utils'
 import { FirestoreContext } from 'FirestoreProvider'
 import ImageUpload from 'UI/ImageUpload'
 
+const { TextArea } = Input;
+
 
 const AreaForm = ({
   form_vals,
@@ -26,10 +28,9 @@ const AreaForm = ({
   if (error) utils.error_msg(error)
 
   const submit_area = (new_area) => {
-    const data = {
-      name: new_area.name
-    }
-
+    const data = { ...new_area }
+    delete data.id
+    delete data.doc_ref
     new_area.doc_ref.set(data)
     .then((docRef) => {
       set_submit_success(true)
@@ -39,7 +40,7 @@ const AreaForm = ({
     })
   }
 
-  const get_result = () => {
+  const get_subission_result = () => {
     if (submit_success) {
       return (
         <Result
@@ -67,6 +68,7 @@ const AreaForm = ({
         <div>
 
           {/* name */}
+          Name
           <Input
             value={form_vals.name}
             placeholder="Name"
@@ -77,7 +79,20 @@ const AreaForm = ({
             }}
           />
 
+          {/* summary */}
+          Summary
+          <TextArea
+            value={form_vals.summary}
+            placeholder="Summary"
+            onChange={(e) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.summary = e.target.value
+              set_form_vals(new_form_vals)
+            }}
+          />
+
           {/* image */}
+          Images
           <ImageUpload
             images_ref={images_ref}
             images={images}
@@ -89,11 +104,11 @@ const AreaForm = ({
             onClick={() => {
               submit_area(form_vals)
             }}
-          > Submit </Button>
+          > Save </Button>
 
         </div>
         :
-        <div>{get_result()}</div>
+        <div>{get_subission_result()}</div>
       }
     </div>
   )

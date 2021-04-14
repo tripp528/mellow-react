@@ -6,19 +6,16 @@ import * as utils from 'utils'
 import AreaForm from 'Area/Form'
 
 
-const UpdateArea = ({
-  area
+const AreaModalForm = ({
+  area,
+  modal_showing,
+  set_modal_showing
 }) => {
 
-  const [modal_showing, set_modal_showing] = useState(false)
-  const [form_vals, set_form_vals] = useState(area)
+  const [form_vals, set_form_vals] = useState({...area})
 
   return (
     <div>
-      <Button
-        onClick={() => set_modal_showing(true)}
-      > Edit </Button>
-
       <Modal
         title="Update Area"
         visible={modal_showing}
@@ -36,4 +33,4 @@ const UpdateArea = ({
   )
 }
 
-export default UpdateArea
+export default AreaModalForm

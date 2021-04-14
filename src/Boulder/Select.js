@@ -5,22 +5,22 @@ import * as utils from 'utils'
 
 import { FirestoreContext } from 'FirestoreProvider'
 
-const AreaSelect = ({
+const BoulderSelect = ({
   value,
   set_value
 }) => {
 
   const { db } = useContext(FirestoreContext)
-  // reference to areas collection in firestore
-  const [areas, loading, error] = useCollectionData(db.collection(utils.collections.areas), {
+  // reference to boulders collection in firestore
+  const [boulders, loading, error] = useCollectionData(db.collection(utils.collections.boulders), {
     idField: 'id',
     refField: 'doc_ref'
   })
   if (error) utils.error_msg(error)
 
-  const options = areas && areas.map(area => ({
-    label: area.name,
-    value: area.id
+  const options = boulders && boulders.map(boulder => ({
+    label: boulder.name,
+    value: boulder.id
   }))
 
   return (
@@ -30,10 +30,10 @@ const AreaSelect = ({
         onChange={set_value}
         options={options}
         style={{ width: '100%' }}
-        placeholder="Select Area"
+        placeholder="Select Boulder"
       />
     </div>
   )
 }
 
-export default AreaSelect;
+export default BoulderSelect;

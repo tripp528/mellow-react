@@ -1,3 +1,6 @@
+import firebase from 'firebase/app'
+import 'firebase/storage'
+
 
 export const error_msg = (...args) => {
   console.error(...args)
@@ -6,8 +9,8 @@ export const error_msg = (...args) => {
 
 
 export const collections = {
-  BOULDERS: 'boulders',
-  AREAS: 'areas'
+  boulders: 'boulders',
+  areas: 'areas'
 }
 
 
@@ -28,6 +31,78 @@ export const uuid = () => {
 
 
 export const get_unique_file_name = local_file_name => {
+  // Get a unique file name with the proper extension
   const extension = local_file_name.split('.').pop()
   return uuid() + '.' + extension
+}
+
+
+export const delete_storage_file_from_url = (download_url, on_success) => {
+  // Delete a file in storage using it's download url
+  const file_ref = firebase.storage().refFromURL(download_url)
+  file_ref.delete()
+  .then(() => {
+    on_success && on_success()
+  })
+  .catch(err => error_msg(err))
+}
+
+
+// TODO: refactor these functions to return promises, and do promises.all
+export const delete_document_with_storage_url = (doc_obj, on_success) => {
+  // Delete a document containing a download url. First delete the
+    // storage file that it has linked, then delete the document.
+  const download_url = doc_obj.url
+  delete_storage_file_from_url(download_url, () => {
+    doc_obj.doc_ref.delete()
+    .then(() => {
+      on_success && on_success()
+    })
+    .catch(err => error_msg(err))
+  })
+}
+
+
+export const delete_collection_of_documents_with_storage_urls = (collection_ref, on_success) => {
+  // delete a collection containing documents that represent files in firebase storage.
+    // first delete the files from storage, then delete the documents
+  collection_ref.get()
+  .then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+      const doc_obj = {
+        ...doc.data(),
+        doc_ref: doc.ref,
+        id: doc.id
+      }
+      delete_document_with_storage_url(doc_obj, on_success)
+    })
+  })
+  .catch(err => error_msg(err))
+}
+
+
+export const maybe_delete_image_subcollection = (doc_ref, on_success) => {
+  // Given a document with an 'images' subcollection, delete all of the images
+    // in storage, then delete all of the documents, and in turn the subcollection
+  doc_ref.get()
+  .then(doc_ref => {
+    if (!doc_ref.exists) {
+      delete_collection_of_documents_with_storage_urls(doc_ref.ref.collection('images'), on_success)
+    }
+  })
+  .catch(err => error_msg(err))
+}
+
+
+export const delete_document_with_image_subcollection = (doc, on_success) => {
+
+  // delete images subcollection
+  maybe_delete_image_subcollection(doc.doc_ref)
+
+  // delete the doc
+  doc.doc_ref.delete()
+  .then(() => {
+    on_success && on_success()
+  })
+  .catch(err => error_msg(err))
 }
