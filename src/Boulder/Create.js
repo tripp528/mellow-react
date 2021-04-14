@@ -21,6 +21,8 @@ const CreateBoulder = () => {
       summary: "",
       location: new firebase.firestore.GeoPoint(0,0),
       area: null,
+      rock_type: null,
+      access_tags: [],
     }
   }
   const [form_vals, set_form_vals] = useState(new_boulder())

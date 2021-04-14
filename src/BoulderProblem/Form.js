@@ -7,6 +7,8 @@ import * as utils from 'utils'
 import { FirestoreContext } from 'FirestoreProvider'
 import ImageUpload from 'UI/ImageUpload'
 import BoulderSelect from 'Boulder/Select'
+import GradeSelect from 'Grade/Select'
+import ClimbingStyleTagsSelect from 'ClimbingStyleTag/Select'
 
 const { TextArea } = Input;
 
@@ -89,6 +91,32 @@ const BoulderProblemForm = ({
             set_value={(val) => {
               const new_form_vals = {...form_vals}
               new_form_vals.boulder = val
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          <Divider/>
+
+          {/* grade */}
+          Grade
+          <GradeSelect
+            value={form_vals.grade}
+            set_value={(val) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.grade = val
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          <Divider/>
+
+          {/* climbing_style_tags */}
+          Climbing Style Tags
+          <ClimbingStyleTagsSelect
+            value={form_vals.climbing_style_tags}
+            set_value={(val) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.climbing_style_tags = val
               set_form_vals(new_form_vals)
             }}
           />

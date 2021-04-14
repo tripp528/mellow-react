@@ -7,6 +7,8 @@ import * as utils from 'utils'
 import { FirestoreContext } from 'FirestoreProvider'
 import ImageUpload from 'UI/ImageUpload'
 import AreaSelect from 'Area/Select'
+import RockTypeSelect from 'RockType/Select'
+import AccessTagsSelect from 'AccessTag/Select'
 
 const { TextArea } = Input;
 
@@ -89,6 +91,32 @@ const BoulderForm = ({
             set_value={(val) => {
               const new_form_vals = {...form_vals}
               new_form_vals.area = val
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          <Divider/>
+
+          {/* rock_type */}
+          Rock Type
+          <RockTypeSelect
+            value={form_vals.rock_type}
+            set_value={(val) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.rock_type = val
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          <Divider/>
+
+          {/* access_tags */}
+          Access Tags
+          <AccessTagsSelect
+            value={form_vals.access_tags}
+            set_value={(val) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.access_tags = val
               set_form_vals(new_form_vals)
             }}
           />

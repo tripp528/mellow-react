@@ -21,9 +21,8 @@ const CreateBoulderProblem = () => {
       boudler: null,
       summary: "",
       rating: -1,
-
-      // List of Climbing Style Tags
-      // Grade (not user based)
+      grade: null,
+      climbing_style_tags: [],
     }
   }
   const [form_vals, set_form_vals] = useState(new_boulder_problem())

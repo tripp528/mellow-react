@@ -5,7 +5,7 @@ import * as utils from 'utils'
 
 import { FirestoreContext } from 'FirestoreProvider'
 
-const ClimbingStyleTagSelect = ({
+const ClimbingStyleTagsSelect = ({
   value,
   set_value
 }) => {
@@ -30,10 +30,13 @@ const ClimbingStyleTagSelect = ({
         onChange={set_value}
         options={options}
         style={{ width: '100%' }}
-        placeholder="Select ClimbingStyleTag"
+        placeholder="Select Climbing Style Tags"
+        mode="multiple"
+        defaultValue={[]}
+        allowClear
       />
     </div>
   )
 }
 
-export default ClimbingStyleTagSelect;
+export default ClimbingStyleTagsSelect

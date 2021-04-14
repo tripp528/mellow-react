@@ -30,7 +30,10 @@ const AccessTagSelect = ({
         onChange={set_value}
         options={options}
         style={{ width: '100%' }}
-        placeholder="Select AccessTag"
+        placeholder="Select Access Tags"
+        mode="multiple"
+        defaultValue={[]}
+        allowClear
       />
     </div>
   )
