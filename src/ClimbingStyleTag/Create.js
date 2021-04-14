@@ -27,10 +27,10 @@ const CreateClimbingStyleTag = () => {
     <div>
       <Button
         onClick={() => set_modal_showing(true)}
-      > Create New ClimbingStyleTag </Button>
+      > Create New Climbing Style Tag </Button>
 
       <Modal
-        title="Create ClimbingStyleTag"
+        title="Create Climbing Style Tag"
         visible={modal_showing}
         footer={null}
         onCancel={() => {

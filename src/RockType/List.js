@@ -10,16 +10,16 @@ import ListItem from 'UI/ListItem'
 import DeleteButton from 'UI/DeleteButton'
 
 const RockTypeListItem = ({ rock_type }) => {
-  const [images, loading, error] = useCollectionData(rock_type.doc_ref.collection('images'))
-  if (error) utils.error_msg(error)
-  const image_url = images && images.length && images[0] && images[0].url
+  // const [images, loading, error] = useCollectionData(rock_type.doc_ref.collection('images'))
+  // if (error) utils.error_msg(error)
+  // const image_url = images && images.length && images[0] && images[0].url
 
   return (
     <ListItem
       title={rock_type.name}
-      description={"description"}
-      other_content={"other content"}
-      image_url={image_url}
+      // description={"description"}
+      // other_content={"other content"}
+      // image_url={image_url}
       edit_button={<RockTypeEdit rock_type={rock_type} />}
       delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(rock_type)} />}
     />

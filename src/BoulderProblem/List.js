@@ -17,8 +17,8 @@ const BoulderProblemListItem = ({ boulder_problem }) => {
   return (
     <ListItem
       title={boulder_problem.name}
-      description={"description"}
-      other_content={"other content"}
+      // description={"description"}
+      // other_content={"other content"}
       image_url={image_url}
       edit_button={<BoulderProblemEdit boulder_problem={boulder_problem} />}
       delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(boulder_problem)} />}

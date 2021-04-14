@@ -101,6 +101,9 @@ export const maybe_delete_image_subcollection = (doc_ref, on_success) => {
 
 export const delete_document_with_image_subcollection = (doc, on_success) => {
 
+  // TODO: prevent delete if reference exists....
+    // get all documents in all collections with id == doc.id ?
+
   // delete images subcollection
   maybe_delete_image_subcollection(doc.doc_ref)
 

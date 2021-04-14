@@ -27,10 +27,10 @@ const CreateRockType = () => {
     <div>
       <Button
         onClick={() => set_modal_showing(true)}
-      > Create New RockType </Button>
+      > Create New Rock Type </Button>
 
       <Modal
-        title="Create RockType"
+        title="Create Rock Type"
         visible={modal_showing}
         footer={null}
         onCancel={() => {

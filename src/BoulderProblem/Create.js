@@ -31,10 +31,10 @@ const CreateBoulderProblem = () => {
     <div>
       <Button
         onClick={() => set_modal_showing(true)}
-      > Create New BoulderProblem </Button>
+      > Create New Boulder Problem </Button>
 
       <Modal
-        title="Create BoulderProblem"
+        title="Create Boulder Problem"
         visible={modal_showing}
         footer={null}
         onCancel={() => {

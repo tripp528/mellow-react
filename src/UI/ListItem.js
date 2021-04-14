@@ -16,10 +16,10 @@ const ListItem = ({
       <Skeleton avatar title={false} loading={false} active>
         <List.Item.Meta
           avatar={
-            <Avatar src={image_url} />
+            image_url ? <Avatar src={image_url} /> : null
           }
           title={title}
-          description="description"
+          description={description}
         />
         <div>{other_content}</div>
       </Skeleton>

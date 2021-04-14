@@ -27,10 +27,10 @@ const CreateAccessTag = () => {
     <div>
       <Button
         onClick={() => set_modal_showing(true)}
-      > Create New AccessTag </Button>
+      > Create New Access Tag </Button>
 
       <Modal
-        title="Create AccessTag"
+        title="Create Access Tag"
         visible={modal_showing}
         footer={null}
         onCancel={() => {

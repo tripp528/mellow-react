@@ -10,16 +10,16 @@ import ListItem from 'UI/ListItem'
 import DeleteButton from 'UI/DeleteButton'
 
 const AccessTagListItem = ({ access_tag }) => {
-  const [images, loading, error] = useCollectionData(access_tag.doc_ref.collection('images'))
-  if (error) utils.error_msg(error)
-  const image_url = images && images.length && images[0] && images[0].url
+  // const [images, loading, error] = useCollectionData(access_tag.doc_ref.collection('images'))
+  // if (error) utils.error_msg(error)
+  // const image_url = images && images.length && images[0] && images[0].url
 
   return (
     <ListItem
       title={access_tag.name}
-      description={"description"}
-      other_content={"other content"}
-      image_url={image_url}
+      // description={"description"}
+      // other_content={"other content"}
+      // image_url={image_url}
       edit_button={<AccessTagEdit access_tag={access_tag} />}
       delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(access_tag)} />}
     />
