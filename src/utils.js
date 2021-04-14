@@ -10,7 +10,12 @@ export const error_msg = (...args) => {
 
 export const collections = {
   boulders: 'boulders',
-  areas: 'areas'
+  areas: 'areas',
+  boulder_problems: 'boulder_problems',
+  climbing_style_tags: 'climbing_style_tags',
+  grades: 'grades',
+  rock_types: 'rock_types',
+  access_tags: 'access_tags',
 }
 
 

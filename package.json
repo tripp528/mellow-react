@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.7.3",
     "antd": "^4.15.0",
     "react": "16.10",
+    "react-color": "^2.19.3",
     "react-dom": "16.10",
     "react-firebase-hooks": "github:CSFrequency/react-firebase-hooks",
     "react-firebaseui": "^5.0.0-canary1",
