@@ -114,3 +114,40 @@ export const delete_document_with_image_subcollection = (doc, on_success) => {
   })
   .catch(err => error_msg(err))
 }
+
+
+export const careful_delete_document = async (doc, query_refs) => {
+  // initialize flag to be true, and flag as false if any references come up
+  let can_delete = true
+
+  // keep track of references to display to the user
+  const docs_with_refs = []
+
+  for (const query_ref of query_refs) {
+    try {
+      const querySnapshot = await query_ref.get()
+      if (querySnapshot.docs.length > 0) {
+        // references - can't delete
+        can_delete = false
+
+        // save references to display to user
+        querySnapshot.forEach(doc => {
+          docs_with_refs.push(doc.data())
+        })
+      }
+
+    } catch(err) {
+      // error getting collection
+      error_msg(err)
+    }
+  }
+
+  if (can_delete) {
+    // no references - can delete
+    delete_document_with_image_subcollection(doc)
+  } else {
+    // assuming all documents have a name field here....
+    error_msg("Cannot delete, this object has references: ", docs_with_refs.map(doc => doc.name))
+  }
+
+}

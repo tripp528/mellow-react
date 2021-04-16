@@ -14,6 +14,8 @@ const GradeListItem = ({ grade }) => {
   // if (error) utils.error_msg(error)
   // const image_url = images && images.length && images[0] && images[0].url
 
+  const { db } = useContext(FirestoreContext)
+
   return (
     <ListItem
       title={grade.name}
@@ -21,7 +23,16 @@ const GradeListItem = ({ grade }) => {
       // other_content={"other content"}
       // image_url={image_url}
       edit_button={<GradeEdit grade={grade} />}
-      delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(grade)} />}
+      // delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(grade)} />}
+      delete_button={
+        <DeleteButton
+          onDelete={() => {
+            utils.careful_delete_document(grade, [
+              db.collection(utils.collections.boulder_problems).where('grade', "==", grade.id),
+            ])
+          }}
+        />
+      }
     />
   )
 }

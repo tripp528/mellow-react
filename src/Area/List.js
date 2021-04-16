@@ -9,6 +9,7 @@ import AreaEdit from 'Area/Edit'
 import ListItem from 'UI/ListItem'
 import DeleteButton from 'UI/DeleteButton'
 
+
 const AreaListItem = ({ area }) => {
   const [images, loading, error] = useCollectionData(area.doc_ref.collection('images'))
   if (error) utils.error_msg(error)
@@ -23,26 +24,15 @@ const AreaListItem = ({ area }) => {
       // other_content={"other content"}
       image_url={image_url}
       edit_button={<AreaEdit area={area} />}
-      delete_button={<DeleteButton onDelete={async () => {
-        try {
-          // make sure there are no references to this area
-          const querySnapshot = await db.collection(utils.collections.boulders).where("area", "==", area.id).get()
-          const boulder_names_using_area = querySnapshot.docs.map(x => x.data().name)
-
-          if (boulder_names_using_area.length > 0) {
-            // references - can't delete
-            utils.error_msg("This area still has boulders. Please delete them or switch the area they belong to: ", boulder_names_using_area)
-
-          } else {
-            // no references - can delete
-            utils.delete_document_with_image_subcollection(area)
-          }
-        } catch(err) {
-          // error getting boulders
-          utils.error_msg(err)
-        }
-
-      }} />}
+      delete_button={
+        <DeleteButton
+          onDelete={() => {
+            utils.careful_delete_document(area, [
+              db.collection(utils.collections.boulders).where('area', "==", area.id),
+            ])
+          }}
+        />
+      }
     />
   )
 }

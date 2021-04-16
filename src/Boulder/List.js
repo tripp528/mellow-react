@@ -14,6 +14,8 @@ const BoulderListItem = ({ boulder }) => {
   if (error) utils.error_msg(error)
   const image_url = images && images.length && images[0] && images[0].url
 
+  const { db } = useContext(FirestoreContext)
+
   return (
     <ListItem
       title={boulder.name}
@@ -21,7 +23,15 @@ const BoulderListItem = ({ boulder }) => {
       // other_content={"other content"}
       image_url={image_url}
       edit_button={<BoulderEdit boulder={boulder} />}
-      delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(boulder)} />}
+      delete_button={
+        <DeleteButton
+          onDelete={() => {
+            utils.careful_delete_document(boulder, [
+              db.collection(utils.collections.boulder_problems).where('boulder', "==", boulder.id),
+            ])
+          }}
+        />
+      }
     />
   )
 }

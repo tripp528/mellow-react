@@ -14,6 +14,8 @@ const ClimbingStyleTagListItem = ({ climbing_style_tag }) => {
   // if (error) utils.error_msg(error)
   // const image_url = images && images.length && images[0] && images[0].url
 
+  const { db } = useContext(FirestoreContext)
+
   return (
     <ListItem
       title={climbing_style_tag.name}
@@ -21,7 +23,15 @@ const ClimbingStyleTagListItem = ({ climbing_style_tag }) => {
       // other_content={"other content"}
       // image_url={image_url}
       edit_button={<ClimbingStyleTagEdit climbing_style_tag={climbing_style_tag} />}
-      delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(climbing_style_tag)} />}
+      delete_button={
+        <DeleteButton
+          onDelete={() => {
+            utils.careful_delete_document(climbing_style_tag, [
+              db.collection(utils.collections.boulder_problems).where('climbing_style_tags', "array-contains", climbing_style_tag.id),
+            ])
+          }}
+        />
+      }
     />
   )
 }

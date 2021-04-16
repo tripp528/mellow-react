@@ -14,6 +14,8 @@ const AccessTagListItem = ({ access_tag }) => {
   // if (error) utils.error_msg(error)
   // const image_url = images && images.length && images[0] && images[0].url
 
+  const { db } = useContext(FirestoreContext)
+
   return (
     <ListItem
       title={access_tag.name}
@@ -21,7 +23,16 @@ const AccessTagListItem = ({ access_tag }) => {
       // other_content={"other content"}
       // image_url={image_url}
       edit_button={<AccessTagEdit access_tag={access_tag} />}
-      delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(access_tag)} />}
+      // delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(access_tag)} />}
+      delete_button={
+        <DeleteButton
+          onDelete={() => {
+            utils.careful_delete_document(access_tag, [
+              db.collection(utils.collections.boulders).where('access_tags', "array-contains", access_tag.id),
+            ])
+          }}
+        />
+      }
     />
   )
 }

@@ -14,6 +14,8 @@ const RockTypeListItem = ({ rock_type }) => {
   // if (error) utils.error_msg(error)
   // const image_url = images && images.length && images[0] && images[0].url
 
+  const { db } = useContext(FirestoreContext)
+
   return (
     <ListItem
       title={rock_type.name}
@@ -21,7 +23,16 @@ const RockTypeListItem = ({ rock_type }) => {
       // other_content={"other content"}
       // image_url={image_url}
       edit_button={<RockTypeEdit rock_type={rock_type} />}
-      delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(rock_type)} />}
+      // delete_button={<DeleteButton onDelete={() => utils.delete_document_with_image_subcollection(rock_type)} />}
+      delete_button={
+        <DeleteButton
+          onDelete={() => {
+            utils.careful_delete_document(rock_type, [
+              db.collection(utils.collections.boulders).where('rock_type', "==", rock_type.id),
+            ])
+          }}
+        />
+      }
     />
   )
 }
