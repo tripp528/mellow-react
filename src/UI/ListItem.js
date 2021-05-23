@@ -5,7 +5,7 @@ const ListItem = ({
   title,
   description,
   other_content,
-  image_url,
+  // image_url,
   edit_button,
   delete_button,
 }) => {
@@ -15,9 +15,9 @@ const ListItem = ({
     >
       <Skeleton avatar title={false} loading={false} active>
         <List.Item.Meta
-          avatar={
-            image_url ? <Avatar src={image_url} /> : null
-          }
+          // avatar={
+          //   image_url ? <Avatar src={image_url} /> : null
+          // }
           title={title}
           description={description}
         />

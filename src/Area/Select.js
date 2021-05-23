@@ -38,4 +38,4 @@ const AreaSelect = ({
   )
 }
 
-export default AreaSelect;
+export default AreaSelect
