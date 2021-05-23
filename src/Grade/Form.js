@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import firebase from 'firebase/app'
-import { Input, InputNumber, Button, Divider, Result, Rate } from 'antd'
+import { Input, Select, InputNumber, Button, Divider, Result, Rate } from 'antd'
 import { SliderPicker } from 'react-color'
 
 import * as utils from 'utils'
@@ -81,6 +81,22 @@ const GradeForm = ({
             }}
           />
           <Divider/>
+
+          {/* type */}
+          Type
+          <Select
+            value={form_vals.type}
+            onChange={(val) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.type = val
+              set_form_vals(new_form_vals)
+            }}
+            options={[{value: 'US'}, {value: 'EU'}]}
+            style={{ width: '100%' }}
+            placeholder="Select Type"
+          />
+          <Divider/>
+
           <Button
             type="primary"
             onClick={() => {

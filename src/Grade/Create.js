@@ -18,6 +18,7 @@ const CreateGrade = () => {
       id: id,
       doc_ref: db.doc(utils.collections.grades + '/' + id),
       name: "",
+      type: "",
     }
   }
   const [form_vals, set_form_vals] = useState(new_grade())

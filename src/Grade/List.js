@@ -19,7 +19,7 @@ const GradeListItem = ({ grade }) => {
   return (
     <ListItem
       title={grade.name}
-      // description={"description"}
+      description={grade.type}
       // other_content={"other content"}
       // image_url={image_url}
       edit_button={<GradeEdit grade={grade} />}

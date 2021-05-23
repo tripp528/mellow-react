@@ -7,7 +7,8 @@ import { FirestoreContext } from 'FirestoreProvider'
 
 const GradeSelect = ({
   value,
-  set_value
+  set_value,
+  type,
 }) => {
 
   const { db } = useContext(FirestoreContext)
@@ -18,7 +19,17 @@ const GradeSelect = ({
   })
   if (error) utils.error_msg(error)
 
-  const options = grades && grades.map(grade => ({
+  // filter by type
+  let filtered_grades = grades && [...grades] || []
+  if (type && type.toUpperCase() === 'US') {
+    filtered_grades = filtered_grades.filter(grade => grade.type === 'US')
+  }
+  if (type && type.toUpperCase() === 'EU') {
+    filtered_grades = filtered_grades.filter(grade => grade.type === 'EU')
+  }
+  console.log(filtered_grades)
+
+  let options = filtered_grades.map(grade => ({
     label: grade.name,
     value: grade.id
   }))
@@ -31,6 +42,7 @@ const GradeSelect = ({
         options={options}
         style={{ width: '100%' }}
         placeholder="Select Grade"
+        allowClear
       />
     </div>
   )

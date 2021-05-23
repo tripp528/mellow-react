@@ -97,14 +97,43 @@ const BoulderProblemForm = ({
 
           <Divider/>
 
-          {/* grade */}
+          {/* us_grade */}
+          US Grade
+          <GradeSelect
+            type={'US'}
+            value={form_vals.us_grade}
+            set_value={(val) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.us_grade = val
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          <Divider/>
+
+          {/* eu_grade */}
+          EU Grade
+          <GradeSelect
+            type={'EU'}
+            value={form_vals.eu_grade}
+            set_value={(val) => {
+              const new_form_vals = {...form_vals}
+              if (val) new_form_vals.eu_grade = val
+              else new_form_vals.eu_grade = null
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          <Divider/>
+
+          {/* temp  */}
           Grade
           <GradeSelect
             value={form_vals.grade}
             set_value={(val) => {
-              const new_form_vals = {...form_vals}
-              new_form_vals.grade = val
-              set_form_vals(new_form_vals)
+              // const new_form_vals = {...form_vals}
+              // new_form_vals.grade = val
+              // set_form_vals(new_form_vals)
             }}
           />
 

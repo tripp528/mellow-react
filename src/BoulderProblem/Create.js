@@ -21,7 +21,8 @@ const CreateBoulderProblem = () => {
       boudler: null,
       summary: "",
       rating: -1,
-      grade: null,
+      us_grade: null,
+      eu_grade: null,
       climbing_style_tags: [],
     }
   }
