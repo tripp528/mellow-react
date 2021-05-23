@@ -7,7 +7,8 @@ import { FirestoreContext } from 'FirestoreProvider'
 
 const AreaSelect = ({
   value,
-  set_value
+  set_value,
+  placeholder="Select Area",
 }) => {
 
   const { db } = useContext(FirestoreContext)
@@ -30,7 +31,8 @@ const AreaSelect = ({
         onChange={set_value}
         options={options}
         style={{ width: '100%' }}
-        placeholder="Select Area"
+        placeholder={placeholder}
+        allowClear
       />
     </div>
   )
