@@ -155,7 +155,7 @@ const BoulderProblemForm = ({
           {/* rating */}
           <p>Rating </p>
           <Rate
-            count={10}
+            count={5}
             value={form_vals.rating}
             onChange={(val) => {
               const new_form_vals = {...form_vals}
@@ -174,6 +174,20 @@ const BoulderProblemForm = ({
             onChange={(e) => {
               const new_form_vals = {...form_vals}
               new_form_vals.summary = e.target.value
+              set_form_vals(new_form_vals)
+            }}
+          />
+
+          <Divider/>
+
+          {/* first_ascent */}
+          First Ascent
+          <Input
+            value={form_vals.first_ascent}
+            placeholder="First Ascent"
+            onChange={(e) => {
+              const new_form_vals = {...form_vals}
+              new_form_vals.first_ascent = e.target.value
               set_form_vals(new_form_vals)
             }}
           />

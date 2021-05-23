@@ -86,7 +86,8 @@ const RockTypeForm = ({
           {/* rating */}
           <p>Rating </p>
           <Rate
-            count={3}
+            allowClear
+            count={5}
             value={form_vals.rating}
             onChange={(val) => {
               const new_form_vals = {...form_vals}

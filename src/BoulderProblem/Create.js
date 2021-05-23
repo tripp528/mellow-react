@@ -20,6 +20,7 @@ const CreateBoulderProblem = () => {
       name: "",
       boudler: null,
       summary: "",
+      first_ascent: "",
       rating: -1,
       us_grade: null,
       eu_grade: null,

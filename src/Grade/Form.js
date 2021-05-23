@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import firebase from 'firebase/app'
-import { Input, Select, InputNumber, Button, Divider, Result, Rate } from 'antd'
+import { Input, Select, InputNumber, Button, Divider, Result } from 'antd'
 import { SliderPicker } from 'react-color'
 
 import * as utils from 'utils'
