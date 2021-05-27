@@ -60,8 +60,7 @@ const BoulderProblemList = () => {
 
   // filter problems by the boulders that matched area filter
   let filtered_boulder_problems = boulder_problems && [...boulder_problems] || []
-  filtered_boulder_problems = filtered_boulder_problems.filter(prob => boulder_ids.includes(prob.boulder))
-  console.log(filtered_boulder_problems)
+  if (area_filter) filtered_boulder_problems = filtered_boulder_problems.filter(prob => boulder_ids.includes(prob.boulder))
 
   // error handle
   if (problems_error) utils.error_msg(problems_error)
